@@ -10,11 +10,15 @@ library(dplyr)
 ```
 ## 
 ## Attaching package: 'dplyr'
-## 
+```
+
+```
 ## The following objects are masked from 'package:stats':
 ## 
 ##     filter, lag
-## 
+```
+
+```
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union
@@ -47,14 +51,14 @@ median(totalStep$total, na.rm = TRUE)
 ```
 
 ```r
-png("figures/plot1.png", width = 480, height = 480, units = "px")
+##png("figures/plot1.png", width = 480, height = 480, units = "px")
 hist(totalStep$total, xlab = "Total Step per Day", main = "Histogram")
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)
+
+```r
+##dev.off()
 ```
 
 From the code, we saw that mean of total step per day is 10766.19 and median is
@@ -65,18 +69,15 @@ From the code, we saw that mean of total step per day is 10766.19 and median is
 ```r
 inter <- group_by(dat, interval)
 steps_per_interval <- summarize(inter, avg=mean(steps, na.rm = TRUE))
-png("figures/plot2.png", width = 480, height = 480, units = "px")
+#png("figures/plot2.png", width = 480, height = 480, units = "px")
 with(steps_per_interval, plot(interval, avg, type = "l", ylab = "average step",
                               main = "average steps per time interval"))
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)
 
 ```r
+#dev.off()
 which.max(steps_per_interval$avg)
 ```
 
@@ -108,7 +109,8 @@ sum(is.na(dat$steps))
 ## [1] 2304
 ```
 
-2304 rows contain missing values.
+2304 rows contain missing values. We will impute the missing values by the 
+average value of that 5 minute-time interval.
 
 
 ```r
@@ -137,15 +139,15 @@ median(newtotal$total)
 ```
 
 ```r
-png("figures/plot3.png", width = 480, height = 480, units = "px")
+#png("figures/plot3.png", width = 480, height = 480, units = "px")
 hist(newtotal$total, xlab = "total steps per day", 
      main = "Histogram of total steps per day")
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)
+
+```r
+#dev.off()
 ```
 
 We impute missing values by average steps at that interval. After imputing missing
@@ -174,14 +176,14 @@ wd <- group_by(week, level, interval)
 steps_per_groupInterval <- summarize(wd, avg = mean(steps, na.rm = TRUE))
 weekday <- filter(steps_per_groupInterval,level == "weekday")
 weekend <- filter(steps_per_groupInterval,level == "weekend")
-png("figures/plot4.png", width = 900, height = 480, units = "px")
+#png("figures/plot4.png", width = 900, height = 480, units = "px")
 par(mfrow=c(1,2))
 with(weekday,plot(interval,avg,type="l", main = "Weekday"))
 with(weekend,plot(interval,avg,type="l", main = "Weekend"))
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
+
+```r
+#dev.off()
 ```
